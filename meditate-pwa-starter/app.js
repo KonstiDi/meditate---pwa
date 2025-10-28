@@ -219,7 +219,14 @@ volumeDisplay.textContent = `${savedVolume}%`;
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-  // Only handle if not typing in an input
+  // Escape key to close modals (always works)
+  if (e.key === 'Escape') {
+    $('#completionModal').classList.add('hidden');
+    $('#historyModal').classList.add('hidden');
+    return;
+  }
+
+  // Only handle other shortcuts if not typing in an input
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
     return;
   }
@@ -475,6 +482,11 @@ $('#installBtn').addEventListener('click', async () => {
 // Init
 (async function init() {
   try {
+    // Ensure modals are hidden on page load
+    $('#completionModal').classList.add('hidden');
+    $('#historyModal').classList.add('hidden');
+    $('#errorToast').classList.add('hidden');
+
     await loadSessions();
     const st = getStats();
     setStats(st);
