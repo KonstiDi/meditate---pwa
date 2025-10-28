@@ -1,6 +1,6 @@
 
 // Basic service worker for offline-first shell + runtime audio caching
-const CACHE_NAME = 'calmstart-shell-v1';
+const CACHE_NAME = 'calmstart-shell-v2';
 const SHELL_ASSETS = [
   './',
   './index.html',
