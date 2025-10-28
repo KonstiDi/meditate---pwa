@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CalmStart</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#ffffff"/>
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>CalmStart</h1>
+    <button id="installBtn" hidden>Install</button>
+  </header>
+
+  <main>
+    <section id="onboarding" class="card hidden">
+      <h2>Welcome</h2>
+      <p>Pick a daily reminder time:</p>
+      <input id="reminderTime" type="time" />
+      <button id="saveOnboarding">Save</button>
+    </section>
+
+    <section class="card">
+      <h2>Quick Start</h2>
+      <button id="quickPlay">3‑minute Reset (sample)</button>
+    </section>
+
+    <section class="card">
+      <h2>Sessions</h2>
+      <div class="filter-controls">
+        <label for="categoryFilter">Filter by category:</label>
+        <select id="categoryFilter" aria-label="Filter sessions by category">
+          <option value="all">All Categories</option>
+          <option value="breathing">Breathing</option>
+          <option value="guided">Guided</option>
+          <option value="music">Music Only</option>
+          <option value="bell">Bell Only</option>
+        </select>
+      </div>
+      <ul id="sessionList" role="list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Player</h2>
+      <div class="player">
+        <button id="playPause" aria-label="Play or pause">Play</button>
+        <span id="nowPlaying" aria-live="polite">—</span>
+        <span id="currentTime">0:00</span>
+        <span>/</span>
+        <span id="totalTime">0:00</span>
+      </div>
+      <div class="progress-container" role="slider" aria-label="Audio progress" tabindex="0">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+      <div class="audio-controls">
+        <button id="skipBack" aria-label="Skip back 10 seconds">-10s</button>
+        <button id="skipForward" aria-label="Skip forward 10 seconds">+10s</button>
+        <div class="volume-control">
+          <label for="volumeSlider">Volume</label>
+          <input type="range" id="volumeSlider" min="0" max="100" value="100" aria-label="Volume control" />
+          <span id="volumeDisplay">100%</span>
+        </div>
+      </div>
+      <div>
+        <label><input type="checkbox" id="offlineToggle" /> Make this session available offline</label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Stats</h2>
+      <p>
+        Streak: <span id="streak">0</span> days ·
+        Sessions: <span id="totalSessions">0</span> ·
+        Minutes: <span id="minutes">0</span>
+      </p>
+      <p id="lastMeditated" class="muted-text"></p>
+      <button id="viewHistory">View History</button>
+    </section>
+
+    <section class="card">
+      <h2>About</h2>
+      <p>Simple, private, offline‑friendly meditation. No accounts required.</p>
+      <p><a href="privacy.html">Privacy Policy</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <small>© 2025 You. Audio © you or licensed.</small>
+  </footer>
+
+  <!-- Completion Modal -->
+  <div id="completionModal" class="modal hidden" role="dialog" aria-labelledby="completionTitle" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="completionTitle">Session Complete!</h2>
+      <p id="completionMessage">Great job! You've completed your meditation.</p>
+      <div id="completionStats"></div>
+      <button id="closeCompletion" aria-label="Close completion dialog">Continue</button>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div id="historyModal" class="modal hidden" role="dialog" aria-labelledby="historyTitle" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="historyTitle">Meditation History</h2>
+      <div id="historyContent"></div>
+      <button id="closeHistory" aria-label="Close history dialog">Close</button>
+    </div>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

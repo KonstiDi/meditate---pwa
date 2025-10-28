@@ -1,0 +1,16 @@
+[
+  {
+    "id": "quick-3",
+    "title": "3‑min Reset (sample 20s)",
+    "length_min": 0.3,
+    "file": "audio/sample_guided_short.wav",
+    "category": "guided"
+  },
+  {
+    "id": "bell-only",
+    "title": "Bell Only",
+    "length_min": 0.5,
+    "file": "audio/bell.wav",
+    "category": "bell"
+  }
+]
