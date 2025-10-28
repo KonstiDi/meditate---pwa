@@ -482,15 +482,24 @@ $('#installBtn').addEventListener('click', async () => {
 // Init
 (async function init() {
   try {
+    console.log('=== INIT START ===');
+
     // Ensure modals are hidden on page load
     $('#completionModal').classList.add('hidden');
     $('#historyModal').classList.add('hidden');
     $('#errorToast').classList.add('hidden');
 
+    console.log('Modals hidden:', {
+      completion: $('#completionModal').classList.contains('hidden'),
+      history: $('#historyModal').classList.contains('hidden')
+    });
+
     await loadSessions();
     const st = getStats();
     setStats(st);
     showOnboardingIfNeeded();
+
+    console.log('=== INIT COMPLETE ===');
   } catch (e) {
     showError('Initialization error. Please refresh the page.');
     console.error('Init error:', e);
