@@ -63,7 +63,7 @@ main {
   transition: background-color 0.3s;
 }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 button {
   padding: 10px 14px;
