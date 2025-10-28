@@ -3,118 +3,207 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CalmStart</title>
+  <title>CalmStart - Welcome</title>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#ffffff"/>
   <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .welcome-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .welcome-content {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(var(--card-rgb, 255, 255, 255), 0.95);
+      border-radius: 24px;
+      max-width: 600px;
+      margin: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-title {
+      font-size: 48px;
+      margin: 0 0 16px 0;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .welcome-subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 32px 0;
+      line-height: 1.6;
+    }
+
+    .nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .nav-button {
+      padding: 16px 32px;
+      font-size: 18px;
+      background: var(--progress);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .nav-button.secondary {
+      background: var(--card);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+
+    .nav-button.secondary:hover {
+      background: var(--hover);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      text-align: center;
+      background: rgba(var(--bg-rgb, 248, 250, 252), 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .privacy-text {
+      font-size: 10px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .privacy-text a {
+      color: var(--muted);
+      text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .welcome-content {
+        background: rgba(30, 41, 59, 0.95);
+      }
+      .welcome-footer {
+        background: rgba(15, 23, 42, 0.9);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .welcome-title {
+        font-size: 36px;
+      }
+      .welcome-subtitle {
+        font-size: 16px;
+      }
+      .nav-button {
+        padding: 14px 24px;
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>CalmStart</h1>
-    <button id="installBtn" hidden>Install</button>
-  </header>
+  <div class="welcome-container">
+    <!-- Background video -->
+    <video class="video-background" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4" type="video/mp4">
+      <!-- Fallback for browsers that don't support video -->
+    </video>
 
-  <main>
-    <section id="onboarding" class="card hidden">
-      <h2>Welcome</h2>
-      <p>Pick a daily reminder time:</p>
-      <input id="reminderTime" type="time" />
-      <button id="saveOnboarding">Save</button>
-    </section>
-
-    <section class="card">
-      <h2>Quick Start</h2>
-      <button id="quickPlay">3‑minute Reset (sample)</button>
-    </section>
-
-    <section class="card">
-      <h2>Sessions</h2>
-      <div class="filter-controls">
-        <label for="categoryFilter">Filter by category:</label>
-        <select id="categoryFilter" aria-label="Filter sessions by category">
-          <option value="all">All Categories</option>
-          <option value="breathing">Breathing</option>
-          <option value="guided">Guided</option>
-          <option value="music">Music Only</option>
-          <option value="bell">Bell Only</option>
-        </select>
-      </div>
-      <ul id="sessionList" role="list"></ul>
-    </section>
-
-    <section class="card">
-      <h2>Player</h2>
-      <div class="player">
-        <button id="playPause" aria-label="Play or pause">Play</button>
-        <span id="nowPlaying" aria-live="polite">—</span>
-        <span id="currentTime">0:00</span>
-        <span>/</span>
-        <span id="totalTime">0:00</span>
-      </div>
-      <div class="progress-container" role="slider" aria-label="Audio progress" tabindex="0">
-        <div class="progress-bar">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
-      </div>
-      <div class="audio-controls">
-        <button id="skipBack" aria-label="Skip back 10 seconds">-10s</button>
-        <button id="skipForward" aria-label="Skip forward 10 seconds">+10s</button>
-        <div class="volume-control">
-          <label for="volumeSlider">Volume</label>
-          <input type="range" id="volumeSlider" min="0" max="100" value="100" aria-label="Volume control" />
-          <span id="volumeDisplay">100%</span>
-        </div>
-      </div>
-      <div>
-        <label><input type="checkbox" id="offlineToggle" /> Make this session available offline</label>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Stats</h2>
-      <p>
-        Streak: <span id="streak">0</span> days ·
-        Sessions: <span id="totalSessions">0</span> ·
-        Minutes: <span id="minutes">0</span>
+    <!-- Welcome content -->
+    <div class="welcome-content">
+      <h1 class="welcome-title">CalmStart</h1>
+      <p class="welcome-subtitle">
+        Find your inner peace through guided meditation.<br>
+        Simple, private, and available offline.
       </p>
-      <p id="lastMeditated" class="muted-text"></p>
-      <button id="viewHistory">View History</button>
-    </section>
 
-    <section class="card">
-      <h2>About</h2>
-      <p>Simple, private, offline‑friendly meditation. No accounts required.</p>
-      <p><a href="privacy.html">Privacy Policy</a></p>
-    </section>
-  </main>
-
-  <footer>
-    <small>© 2025 You. Audio © you or licensed.</small>
-  </footer>
-
-  <!-- Completion Modal -->
-  <div id="completionModal" class="modal hidden" role="dialog" aria-labelledby="completionTitle" aria-modal="true">
-    <div class="modal-content">
-      <h2 id="completionTitle">Session Complete!</h2>
-      <p id="completionMessage">Great job! You've completed your meditation.</p>
-      <div id="completionStats"></div>
-      <button id="closeCompletion" aria-label="Close completion dialog">Continue</button>
+      <div class="nav-buttons">
+        <a href="app.html" class="nav-button">Start Meditating</a>
+        <a href="privacy.html" class="nav-button secondary">Privacy Policy</a>
+        <button id="installBtn" class="nav-button secondary" hidden>Install App</button>
+      </div>
     </div>
   </div>
 
-  <!-- History Modal -->
-  <div id="historyModal" class="modal hidden" role="dialog" aria-labelledby="historyTitle" aria-modal="true">
-    <div class="modal-content">
-      <h2 id="historyTitle">Meditation History</h2>
-      <div id="historyContent"></div>
-      <button id="closeHistory" aria-label="Close history dialog">Close</button>
-    </div>
+  <!-- Footer with privacy notice -->
+  <div class="welcome-footer">
+    <p class="privacy-text">
+      CalmStart respects your privacy. No accounts required. All data stays on your device.
+      <a href="privacy.html">Learn more</a>
+    </p>
   </div>
 
-  <!-- Error Toast -->
-  <div id="errorToast" class="toast hidden" role="alert" aria-live="assertive"></div>
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
 
-  <script src="app.js?t=1761681853"></script>
+    // Install prompt
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBtn').hidden = false;
+    });
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      try {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        document.getElementById('installBtn').hidden = true;
+      } catch (e) {
+        console.error('Install prompt error:', e);
+      }
+    });
+
+    // Pause video when page is not visible (saves battery)
+    document.addEventListener('visibilitychange', () => {
+      const video = document.querySelector('.video-background');
+      if (document.visibilityState === 'hidden') {
+        video.pause();
+      } else {
+        video.play();
+      }
+    });
+  </script>
 </body>
 </html>
