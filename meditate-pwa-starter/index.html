@@ -140,8 +140,10 @@
   <div class="welcome-container">
     <!-- Background video -->
     <video class="video-background" autoplay muted loop playsinline>
+      <source src="video/background.mp4" type="video/mp4">
+      <source src="video/background.webm" type="video/webm">
+      <!-- Fallback to online video if local video not found -->
       <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4" type="video/mp4">
-      <!-- Fallback for browsers that don't support video -->
     </video>
 
     <!-- Welcome content -->
