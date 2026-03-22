@@ -1,10 +1,11 @@
 {
-  "name": "EquiStance",
-  "short_name": "EquiStance",
+  "name": "Equipoise",
+  "short_name": "Equipoise",
+  "description": "Find your balance through meditation. Calm your mind amid Swiss alpine serenity.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#0d0a1a",
+  "theme_color": "#2f177b",
   "icons": [
     {
       "src": "assets/icon-192.png",

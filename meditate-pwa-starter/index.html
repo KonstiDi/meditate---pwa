@@ -2,210 +2,327 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EquiStance - Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Equipoise</title>
+  <meta name="description" content="Find your inner peace through guided meditation. Simple, private, offline-first." />
+  <meta name="theme-color" content="#2f177b" />
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#ffffff"/>
   <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .welcome-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.6;
-    }
-
-    .welcome-content {
-      text-align: center;
-      padding: 40px 20px;
-      background: rgba(var(--card-rgb, 255, 255, 255), 0.95);
-      border-radius: 24px;
-      max-width: 600px;
-      margin: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    .welcome-title {
-      font-size: 48px;
-      margin: 0 0 16px 0;
-      font-weight: 300;
-      letter-spacing: 2px;
-    }
-
-    .welcome-subtitle {
-      font-size: 18px;
-      color: var(--muted);
-      margin: 0 0 32px 0;
-      line-height: 1.6;
-    }
-
-    .nav-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .nav-button {
-      padding: 16px 32px;
-      font-size: 18px;
-      background: var(--progress);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .nav-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-    }
-
-    .nav-button.secondary {
-      background: var(--card);
-      color: var(--fg);
-      border: 1px solid var(--border);
-    }
-
-    .nav-button.secondary:hover {
-      background: var(--hover);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .welcome-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 12px;
-      text-align: center;
-      background: rgba(var(--bg-rgb, 248, 250, 252), 0.9);
-      backdrop-filter: blur(10px);
-    }
-
-    .privacy-text {
-      font-size: 10px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .privacy-text a {
-      color: var(--muted);
-      text-decoration: underline;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .welcome-content {
-        background: rgba(30, 41, 59, 0.95);
-      }
-      .welcome-footer {
-        background: rgba(15, 23, 42, 0.9);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .welcome-title {
-        font-size: 36px;
-      }
-      .welcome-subtitle {
-        font-size: 16px;
-      }
-      .nav-button {
-        padding: 14px 24px;
-        font-size: 16px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <div class="welcome-container">
-    <!-- Background video -->
-    <video class="video-background" autoplay muted loop playsinline>
+
+  <!-- ============================================
+       WELCOME VIEW
+       ============================================ -->
+  <div id="view-welcome" class="view active">
+    <video class="welcome-bg" autoplay muted loop playsinline>
       <source src="video/background.mp4" type="video/mp4">
-      <source src="video/background.webm" type="video/webm">
-      <!-- Fallback to online video if local video not found -->
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4" type="video/mp4">
     </video>
+    <div class="welcome-overlay"></div>
 
-    <!-- Welcome content -->
     <div class="welcome-content">
-      <h1 class="welcome-title">EquiStance</h1>
+      <img src="assets/Logo A Blue.png" alt="Equipoise" class="welcome-logo" />
+      <h1 class="welcome-title">Equipoise</h1>
       <p class="welcome-subtitle">
-        Find your inner peace through guided meditation.<br>
-        Simple, private, and available offline.
+        Find your balance through meditation.<br>
+        Calm your mind amid Swiss alpine serenity.
       </p>
+      <button class="welcome-cta" id="enterAppBtn">Begin Your Journey</button>
+      <br>
+      <button id="installBtnWelcome" class="welcome-install-btn" hidden>Install App</button>
+    </div>
 
-      <div class="nav-buttons">
-        <a href="app.html" class="nav-button">Start Meditating</a>
-        <a href="privacy.html" class="nav-button secondary">Privacy Policy</a>
-        <button id="installBtn" class="nav-button secondary" hidden>Install App</button>
+    <div class="welcome-footer">
+      <p>
+        Your data stays on your device. No accounts required.
+        <a href="privacy.html">Privacy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ONBOARDING OVERLAY
+       ============================================ -->
+  <div id="onboarding" class="onboarding-overlay hidden">
+    <div class="onboarding-card">
+      <h2>Welcome to Equipoise</h2>
+      <p>Would you like a daily reminder to meditate?</p>
+      <input id="reminderTime" type="time" value="08:00" />
+      <button id="saveOnboarding" class="modal-btn">Set Reminder</button>
+      <button id="skipOnboarding" class="onboarding-skip">Skip for now</button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       APP HEADER (shown in all app views)
+       ============================================ -->
+  <header class="app-header hidden" id="appHeader">
+    <img src="assets/Logo A Blue.png" alt="Equipoise" class="app-header-logo" />
+    <button id="installBtnHeader" hidden style="padding:6px 16px; border-radius:20px; font-size:12px; background:var(--primary); color:white; border:none; cursor:pointer;">Install</button>
+  </header>
+
+  <!-- ============================================
+       HOME VIEW
+       ============================================ -->
+  <div id="view-home" class="view">
+    <div class="home-container">
+      <div class="greeting-section">
+        <h1 class="greeting-text" id="greetingText">Good morning</h1>
+        <p class="greeting-sub">Ready to find your balance?</p>
+      </div>
+
+      <!-- Featured Session -->
+      <div class="featured-card" id="featuredCard">
+        <div class="featured-card-bg" style="background: var(--gradient-lake);">
+          <div class="featured-card-content">
+            <p class="featured-label">Today's Session</p>
+            <h3 class="featured-title" id="featuredTitle">3-min Reset</h3>
+            <p class="featured-meta" id="featuredMeta">Guided · 3 min</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-value" id="homeStreak">0</span>
+          <span class="stat-label">Day Streak</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="homeSessions">0</span>
+          <span class="stat-label">Sessions</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="homeMinutes">0</span>
+          <span class="stat-label">Minutes</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <h2 class="section-title">Quick Start</h2>
+      <div class="quick-actions">
+        <button class="quick-action" data-action="quick-play">
+          <span class="quick-action-icon">🧘</span>
+          <span class="quick-action-label">Quick Reset</span>
+          <span class="quick-action-desc">3 min guided</span>
+        </button>
+        <button class="quick-action" data-action="timer">
+          <span class="quick-action-icon">⏱️</span>
+          <span class="quick-action-label">Timer</span>
+          <span class="quick-action-desc">Unguided</span>
+        </button>
+        <button class="quick-action" data-action="breathe">
+          <span class="quick-action-icon">🌬️</span>
+          <span class="quick-action-label">Breathe</span>
+          <span class="quick-action-desc">Breathing guide</span>
+        </button>
+        <button class="quick-action" data-action="browse">
+          <span class="quick-action-icon">📚</span>
+          <span class="quick-action-label">Browse</span>
+          <span class="quick-action-desc">All sessions</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Footer with privacy notice -->
-  <div class="welcome-footer">
-    <p class="privacy-text">
-      EquiStance respects your privacy. No accounts required. All data stays on your device.
-      <a href="privacy.html">Learn more</a>
-    </p>
+  <!-- ============================================
+       MEDITATE VIEW - Session Library
+       ============================================ -->
+  <div id="view-meditate" class="view">
+    <div class="meditate-container">
+      <h1 class="section-title" style="font-size: 24px; margin-bottom: 24px;">Meditate</h1>
+
+      <!-- Category Pills -->
+      <div class="category-pills" id="categoryPills">
+        <button class="category-pill active" data-category="all">All</button>
+        <button class="category-pill" data-category="guided">Guided</button>
+        <button class="category-pill" data-category="breathing">Breathing</button>
+        <button class="category-pill" data-category="music">Music</button>
+        <button class="category-pill" data-category="bell">Bell</button>
+      </div>
+
+      <!-- Session List -->
+      <div class="session-grid" id="sessionGrid"></div>
+    </div>
   </div>
 
-  <script>
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
-      });
-    }
+  <!-- ============================================
+       PLAYER VIEW - Immersive
+       ============================================ -->
+  <div id="view-player" class="view">
+    <div class="player-bg">
+      <div class="player-bg-gradient" id="playerBgGradient" style="background: var(--gradient-calm);"></div>
+    </div>
+    <div class="player-overlay"></div>
 
-    // Install prompt
-    let deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('installBtn').hidden = false;
-    });
+    <button class="player-close" id="playerClose" aria-label="Close player">✕</button>
 
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      try {
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        document.getElementById('installBtn').hidden = true;
-      } catch (e) {
-        console.error('Install prompt error:', e);
-      }
-    });
+    <div class="player-content">
+      <!-- Circular Progress -->
+      <div class="progress-ring-container" id="progressRingContainer">
+        <svg class="progress-ring" viewBox="0 0 240 240">
+          <circle class="progress-ring-bg" cx="120" cy="120" r="112" />
+          <circle class="progress-ring-fill" id="progressRingFill" cx="120" cy="120" r="112" />
+        </svg>
+        <div class="progress-ring-center">
+          <span class="player-time-current" id="playerTimeCurrent">0:00</span>
+          <span class="player-time-total" id="playerTimeTotal">0:00</span>
+        </div>
+      </div>
 
-    // Pause video when page is not visible (saves battery)
-    document.addEventListener('visibilitychange', () => {
-      const video = document.querySelector('.video-background');
-      if (document.visibilityState === 'hidden') {
-        video.pause();
-      } else {
-        video.play();
-      }
-    });
-  </script>
+      <h2 class="player-session-title" id="playerTitle">—</h2>
+      <p class="player-session-category" id="playerCategory">—</p>
+
+      <!-- Controls -->
+      <div class="player-controls">
+        <button class="player-btn" id="playerSkipBack" aria-label="Back 10 seconds">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 3C17.15 3 21.08 6.03 22.45 10.22L20.08 11C18.96 7.59 15.97 5 12.5 5C10.54 5 8.77 5.74 7.41 6.95L10 9.5H3V2.5L5.59 5.09C7.37 3.47 9.84 3 12.5 3ZM11 14V9H9V14H11ZM13 14V9H15V14H13Z"/></svg>
+        </button>
+        <button class="player-btn-main" id="playerPlayPause" aria-label="Play or pause">
+          <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg id="pauseIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
+        <button class="player-btn" id="playerSkipForward" aria-label="Forward 10 seconds">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 3C6.85 3 2.92 6.03 1.55 10.22L3.92 11C5.04 7.59 8.03 5 11.5 5C13.46 5 15.23 5.74 16.59 6.95L14 9.5H21V2.5L18.41 5.09C16.63 3.47 14.16 3 11.5 3ZM11 14V9H9V14H11ZM13 14V9H15V14H13Z"/></svg>
+        </button>
+      </div>
+
+      <!-- Volume & Offline -->
+      <div class="player-extras">
+        <div class="player-volume">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.6"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+          <input type="range" id="playerVolume" min="0" max="100" value="100" aria-label="Volume" />
+        </div>
+        <label class="player-offline-toggle">
+          <input type="checkbox" id="offlineToggle" />
+          Offline
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       TIMER VIEW
+       ============================================ -->
+  <div id="view-timer" class="view">
+    <div class="timer-container">
+      <h1 class="timer-title">Meditation Timer</h1>
+
+      <div class="timer-presets" id="timerPresets">
+        <button class="timer-preset" data-minutes="1">1<span>min</span></button>
+        <button class="timer-preset" data-minutes="3">3<span>min</span></button>
+        <button class="timer-preset active" data-minutes="5">5<span>min</span></button>
+        <button class="timer-preset" data-minutes="10">10<span>min</span></button>
+        <button class="timer-preset" data-minutes="15">15<span>min</span></button>
+        <button class="timer-preset" data-minutes="20">20<span>min</span></button>
+      </div>
+
+      <div class="breathing-circle-container">
+        <div class="breathing-circle" id="breathingCircle"></div>
+        <div class="breathing-label" id="breathingLabel">Breathe</div>
+      </div>
+
+      <div class="timer-display" id="timerDisplay">5:00</div>
+
+      <button class="timer-start-btn" id="timerStartBtn">Start</button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       PROFILE VIEW
+       ============================================ -->
+  <div id="view-profile" class="view">
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <img src="assets/Logo A Blue.png" alt="" class="profile-avatar-icon" style="width:40px; filter:brightness(0) invert(1);" />
+        </div>
+        <h1 class="profile-name">Your Journey</h1>
+        <p class="profile-joined muted-text" id="lastMeditated"></p>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-card">
+          <span class="stat-value" id="profileStreak">0</span>
+          <span class="stat-label">Day Streak</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="profileSessions">0</span>
+          <span class="stat-label">Sessions</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="profileMinutes">0</span>
+          <span class="stat-label">Minutes</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">Settings</h2>
+      <div class="settings-group">
+        <button class="settings-item" id="viewHistory">
+          <span class="settings-item-label">Meditation History</span>
+          <span class="settings-item-value">→</span>
+        </button>
+        <button class="settings-item" onclick="window.open('privacy.html','_blank')">
+          <span class="settings-item-label">Privacy Policy</span>
+          <span class="settings-item-value">→</span>
+        </button>
+      </div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <p class="muted-text" style="font-size:12px;">Equipoise · Made with calm in Switzerland</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       BOTTOM NAVIGATION
+       ============================================ -->
+  <nav class="bottom-nav hidden" id="bottomNav">
+    <button class="nav-item active" data-view="home" aria-label="Home">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item" data-view="meditate" aria-label="Meditate">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span class="nav-label">Meditate</span>
+    </button>
+    <button class="nav-item" data-view="timer" aria-label="Timer">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+      <span class="nav-label">Timer</span>
+    </button>
+    <button class="nav-item" data-view="profile" aria-label="Profile">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span class="nav-label">Profile</span>
+    </button>
+  </nav>
+
+  <!-- ============================================
+       MODALS
+       ============================================ -->
+
+  <!-- Completion Modal -->
+  <div id="completionModal" class="modal hidden" role="dialog" aria-labelledby="completionTitle" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="completionTitle" style="text-align:center;">Session Complete</h2>
+      <p id="completionMessage" style="text-align:center; color:var(--fg-muted);"></p>
+      <div id="completionStats" style="text-align:center; margin: 16px 0;"></div>
+      <button id="closeCompletion" class="modal-btn" aria-label="Close">Continue</button>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div id="historyModal" class="modal hidden" role="dialog" aria-labelledby="historyTitle" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="historyTitle">Meditation History</h2>
+      <div id="historyContent"></div>
+      <button id="closeHistory" class="modal-btn" aria-label="Close">Close</button>
+    </div>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
